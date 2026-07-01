@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Naveen T — Software Developer &amp; Document Accessibility Specialist</title>
+<meta name="description" content="Portfolio of Naveen T — Java/Spring Boot developer, React builder, and PDF/EPUB accessibility specialist.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0F1115;
+    --surface: #171A21;
+    --border: #262B36;
+    --text: #E7E9EE;
+    --muted: #8890A0;
+    --accent: #5EEAD4;
+    --accent-dim: #3FA89B;
+    --amber: #F2A65A;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a{ color: var(--accent); text-decoration: none; }
+  a:hover{ text-decoration: underline; }
+
+  :focus-visible{
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .wrap{
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- NAV ---------- */
+  header.site-nav{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(15,17,21,0.88);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner{
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 16px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .nav-brand{
+    font-family: var(--mono);
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text);
+  }
+  .nav-brand span{ color: var(--accent); }
+  .nav-links{
+    display:flex;
+    gap: 22px;
+    list-style:none;
+    margin:0; padding:0;
+    font-family: var(--mono);
+    font-size: 13px;
+  }
+  .nav-links a{ color: var(--muted); }
+  .nav-links a:hover{ color: var(--accent); text-decoration:none; }
+
+  /* ---------- TAG CHROME (signature element) ---------- */
+  .tag-open, .tag-close{
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    opacity: 0.9;
+  }
+  .tag-open .punct, .tag-close .punct{ color: var(--accent-dim); }
+
+  section.tagged{
+    position: relative;
+    padding: 64px 0 40px 24px;
+    margin-left: 4px;
+    border-left: 1px solid var(--border);
+  }
+  section.tagged::before{
+    content:'';
+    position:absolute;
+    left:-1px; top:64px;
+    width:1px; height: 18px;
+    background: var(--accent-dim);
+  }
+  section.tagged .tag-close{
+    display:block;
+    margin-top: 36px;
+  }
+
+  h2.section-title{
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 28px;
+    margin: 6px 0 28px;
+    color: var(--text);
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding: 96px 0 72px;
+    border-left: none;
+  }
+  .eyebrow{
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 18px;
+    display:flex;
+    align-items:center;
+    gap: 10px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:8px; height:8px;
+    background: var(--accent);
+    border-radius:50%;
+    display:inline-block;
+    box-shadow: 0 0 0 3px rgba(94,234,212,0.15);
+  }
+  .hero h1{
+    font-size: clamp(34px, 6vw, 54px);
+    line-height: 1.1;
+    margin: 0 0 20px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .hero h1 .accent{ color: var(--accent); }
+  .hero p.lede{
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 560px;
+    margin: 0 0 32px;
+  }
+  .hero-actions{
+    display:flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .btn{
+    font-family: var(--mono);
+    font-size: 14px;
+    padding: 12px 20px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    color: var(--text);
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    transition: border-color .15s ease, color .15s ease, background .15s ease;
+  }
+  .btn:hover{ border-color: var(--accent); color: var(--accent); text-decoration:none; }
+  .btn.primary{
+    background: var(--accent);
+    color: #0F1115;
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+  .btn.primary:hover{ background: #7FF2E4; color:#0F1115; }
+
+  .meta-row{
+    margin-top: 44px;
+    display:flex;
+    gap: 28px;
+    flex-wrap:wrap;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .meta-row span{ color: var(--text); }
+
+  /* ---------- ABOUT ---------- */
+  .about-text{ color: var(--muted); font-size: 16px; max-width: 620px; }
+  .about-text strong{ color: var(--text); font-weight: 600; }
+
+  /* ---------- PROJECTS ---------- */
+  .project-card{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 26px 26px 22px;
+    margin-bottom: 20px;
+    transition: border-color .15s ease, transform .15s ease;
+  }
+  .project-card:hover{ border-color: var(--accent-dim); }
+  .project-head{
+    display:flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+  .project-head h3{
+    margin:0;
+    font-size: 19px;
+    font-weight: 600;
+  }
+  .project-index{
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent-dim);
+  }
+  .project-card p{
+    color: var(--muted);
+    margin: 0 0 16px;
+    font-size: 15px;
+  }
+  .stack{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .stack span{
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    background: rgba(94,234,212,0.08);
+    border: 1px solid rgba(94,234,212,0.25);
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+
+  /* ---------- SPECIALTY (accessibility/xml/epub) ---------- */
+  .specialty-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .specialty-card{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px;
+  }
+  .specialty-card .tag-open{ display:block; margin-bottom: 12px; font-size: 12px; }
+  .specialty-card ul{
+    margin: 0;
+    padding-left: 18px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .specialty-card li{ margin-bottom: 6px; }
+  .specialty-card li::marker{ color: var(--accent-dim); }
+
+  .tools-row{
+    margin-top: 22px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display:flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .tools-row span{
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    border-radius: 6px;
+  }
+
+  /* ---------- SKILLS ---------- */
+  .skills-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+  .skill-group h4{
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    margin: 0 0 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .skill-group ul{
+    list-style: none;
+    margin:0; padding:0;
+    color: var(--muted);
+    font-size: 14.5px;
+  }
+  .skill-group li{
+    padding: 7px 0;
+    border-bottom: 1px dashed var(--border);
+  }
+  .skill-group li:last-child{ border-bottom:none; }
+
+  /* ---------- EDUCATION ---------- */
+  .edu-card{
+    display:flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px 26px;
+  }
+  .edu-card h3{ margin: 0 0 6px; font-size: 17px; }
+  .edu-card p{ margin:0; color: var(--muted); font-size: 14px; }
+  .edu-meta{
+    text-align: right;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  .edu-meta .cgpa{ color: var(--muted); display:block; margin-top:4px; font-size:12px; }
+
+  .lang-row{
+    margin-top: 16px;
+    display:flex;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .lang-row strong{ color: var(--text); }
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  footer.contact{
+    padding: 72px 28px 48px;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+  footer.contact .eyebrow{ justify-content:center; }
+  footer.contact h2{
+    font-size: clamp(28px, 5vw, 40px);
+    margin: 0 0 16px;
+  }
+  footer.contact p{ color: var(--muted); margin: 0 0 32px; }
+  .contact-links{
+    display:flex;
+    justify-content:center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+  .footnote{
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  @media (max-width: 700px){
+    .specialty-grid{ grid-template-columns: 1fr; }
+    .skills-grid{ grid-template-columns: 1fr; }
+    section.tagged{ padding-left: 18px; }
+    .nav-links{ font-size: 12px; gap: 14px; }
+    .edu-meta{ text-align:left; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    *{ transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <div class="nav-brand">naveen<span>.dev</span></div>
+    <ul class="nav-links">
+      <li><a href="#about">about</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#specialty">accessibility</a></li>
+      <li><a href="#skills">skills</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <section class="hero" aria-label="Introduction">
+      <p class="eyebrow">Available for opportunities</p>
+      <h1>Naveen T builds <span class="accent">structured</span>, accessible software.</h1>
+      <p class="lede">Java &amp; React developer with a specialist edge in document accessibility — tagging PDFs, validating EPUBs, and building web apps that hold up to WCAG standards, not just deadlines.</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="mailto:naveenth510@gmail.com">Get in touch</a>
+        <a class="btn" href="https://github.com/naveenth510-jpg" target="_blank" rel="noopener">View GitHub</a>
+        <a class="btn" href="https://linkedin.com/in/naveent20" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+      <div class="meta-row">
+        <div>📍 <span>Namakkal, Tamil Nadu, India</span></div>
+        <div>✆ <span>90251 52437</span></div>
+        <div>🎓 <span>BE, Electronics &amp; Communication Engineering</span></div>
+      </div>
+    </section>
+
+    <section class="tagged" id="about" aria-labelledby="about-title">
+      <span class="tag-open"><span class="punct">&lt;</span>about<span class="punct">&gt;</span></span>
+      <h2 class="section-title" id="about-title">Career objective</h2>
+      <p class="about-text">To achieve a career in a progressive work environment where I can devote my <strong>creative and professional abilities</strong> to satisfy my urge for excellence, and grow with honesty and loyalty for the organisation.</p>
+      <p class="about-text" style="margin-top:16px;">My background bridges two worlds: hands-on <strong>full-stack development</strong> with Java and React, and specialized work in <strong>document accessibility</strong> — making PDFs, XML, and EPUBs usable for everyone, in line with WCAG 2.0/2.1 standards.</p>
+      <span class="tag-close"><span class="punct">&lt;/</span>about<span class="punct">&gt;</span></span>
+    </section>
+
+    <section class="tagged" id="projects" aria-labelledby="projects-title">
+      <span class="tag-open"><span class="punct">&lt;</span>projects<span class="punct">&gt;</span></span>
+      <h2 class="section-title" id="projects-title">Selected projects</h2>
+
+      <div class="project-card">
+        <div class="project-head">
+          <h3>Employee Management System</h3>
+          <span class="project-index">01</span>
+        </div>
+        <p>A full CRUD web application for managing employee records — add, view, update, and delete — with a Java Servlets/JSP backend and Oracle SQL database behind an HTML/CSS/JS frontend.</p>
+        <div class="stack">
+          <span>HTML</span><span>CSS</span><span>JavaScript</span><span>Java (Hibernate)</span><span>Oracle SQL</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-head">
+          <h3>Media Hub</h3>
+          <span class="project-index">02</span>
+        </div>
+        <p>A full-featured media web app for browsing music, video, photos, and playlists. Built around a persistent bottom player bar with play/pause, skip, shuffle, repeat, seek, and volume controls — a dynamic, component-based UI powered by React.</p>
+        <div class="stack">
+          <span>HTML</span><span>CSS</span><span>JavaScript</span><span>React</span>
+        </div>
+      </div>
+
+      <span class="tag-close"><span class="punct">&lt;/</span>projects<span class="punct">&gt;</span></span>
+    </section>
+
+    <section class="tagged" id="specialty" aria-labelledby="specialty-title">
+      <span class="tag-open"><span class="punct">&lt;</span>document-accessibility<span class="punct">&gt;</span></span>
+      <h2 class="section-title" id="specialty-title">Accessibility &amp; document engineering</h2>
+      <p class="about-text" style="margin-bottom:24px;">Hands-on experience preparing digital documents to meet international accessibility standards — a niche that combines careful attention to structure with real technical tooling.</p>
+
+      <div class="specialty-grid">
+        <div class="specialty-card">
+          <span class="tag-open">&lt;pdf&gt;</span>
+          <ul>
+            <li>WCAG 2.0/2.1 compliant remediation</li>
+            <li>Tagging, reading order, alt-text</li>
+            <li>Bookmarking in Adobe Acrobat Pro</li>
+            <li>Scanned-document OCR with ABBYY FineReader</li>
+          </ul>
+        </div>
+        <div class="specialty-card">
+          <span class="tag-open">&lt;xml&gt;</span>
+          <ul>
+            <li>Creating well-formed XML documents</li>
+            <li>Editing &amp; validating XML structures</li>
+            <li>Data formatting workflows</li>
+            <li>Content conversion pipelines</li>
+          </ul>
+        </div>
+        <div class="specialty-card">
+          <span class="tag-open">&lt;epub&gt;</span>
+          <ul>
+            <li>Creating &amp; editing EPUB3 e-books</li>
+            <li>Validation with Pagina EPUB Checker</li>
+            <li>Standards-compliant formatting</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tools-row">
+        <span>Adobe Acrobat Pro</span>
+        <span>ABBYY FineReader</span>
+        <span>Pagina EPUB Checker</span>
+        <span>Adobe Photoshop 7.0</span>
+      </div>
+      <span class="tag-close"><span class="punct">&lt;/</span>document-accessibility<span class="punct">&gt;</span></span>
+    </section>
+
+    <section class="tagged" id="skills" aria-labelledby="skills-title">
+      <span class="tag-open"><span class="punct">&lt;</span>skills<span class="punct">&gt;</span></span>
+      <h2 class="section-title" id="skills-title">Technical skills</h2>
+
+      <div class="skills-grid">
+        <div class="skill-group">
+          <h4>Core Java</h4>
+          <ul>
+            <li>Inheritance, Encapsulation, Abstraction, Polymorphism</li>
+            <li>Singleton pattern &amp; JavaBean classes</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h4>SQL &amp; Databases</h4>
+          <ul>
+            <li>DBMS &amp; RDBMS concepts</li>
+            <li>Data types &amp; constraints</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h4>Web Technology</h4>
+          <ul>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript (Basic)</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h4>Frameworks &amp; Tools</h4>
+          <ul>
+            <li>Spring Boot — REST API development</li>
+            <li>VS Code, Eclipse IDE</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="lang-row">
+        <strong>Languages:</strong> English (Read, Write, Speak) · Tamil (Read, Write, Speak)
+      </div>
+      <span class="tag-close"><span class="punct">&lt;/</span>skills<span class="punct">&gt;</span></span>
+    </section>
+
+    <section class="tagged" id="education" aria-labelledby="education-title">
+      <span class="tag-open"><span class="punct">&lt;</span>education<span class="punct">&gt;</span></span>
+      <h2 class="section-title" id="education-title">Education</h2>
+      <div class="edu-card">
+        <div>
+          <h3>BE — Electronics &amp; Communication Engineering</h3>
+          <p>Muthyammal College of Engineering, Rasipuram, Tamil Nadu · Anna University</p>
+        </div>
+        <div class="edu-meta">
+          2020 – 2024
+          <span class="cgpa">CGPA: 7.4</span>
+        </div>
+      </div>
+      <span class="tag-close"><span class="punct">&lt;/</span>education<span class="punct">&gt;</span></span>
+    </section>
+
+  </div>
+
+  <footer class="contact" id="contact" aria-labelledby="contact-title">
+    <p class="eyebrow" style="justify-content:center;">Open to work</p>
+    <h2 id="contact-title">Let's build something well-structured.</h2>
+    <p>Reach out for full-stack development or document accessibility work.</p>
+    <div class="contact-links">
+      <a class="btn primary" href="mailto:naveenth510@gmail.com">naveenth510@gmail.com</a>
+      <a class="btn" href="tel:9025152437">90251 52437</a>
+      <a class="btn" href="https://linkedin.com/in/naveent20" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://github.com/naveenth510-jpg" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <p class="footnote">Namakkal, Tamil Nadu, India · Built &amp; tagged with care.</p>
+  </footer>
+</main>
+
+</body>
+</html>
